@@ -3,9 +3,9 @@ $MenuItemFolder = "MenuItems"
 $MenuItemPath   = Join-Path $BasePath $MenuItemFolder
 $MenuItems      = Get-ChildItem $MenuItemPath | Where { $_.Name -match "^[1-9][0-9]?\) .+" }
 
-$ErrorFlag      = $false
-
 # Collect menu items
+$ErrorFlag = $false
+
 if ($MenuItems.Count -gt 0) {
     ForEach ($MenuItem In $MenuItems) {
         $OptionString  = $MenuItem.BaseName.Split(")")[0]
@@ -16,6 +16,17 @@ if ($MenuItems.Count -gt 0) {
     }
 
     $MenuItems = $MenuItems | Sort -Property OptionInteger
+
+    $PreviousOptionInteger = -1
+
+    ForEach ($MenuItem In $MenuItems) {
+        if ($MenuItem.OptionInteger -eq $PreviousOptionInteger) {
+            Write-Host "Option '$PreviousOptionInteger' is used multiple times. Please rename files in folder '$MenuItemPath'."
+            $ErrorFlag = $true
+        } else {
+            $PreviousOptionInteger = $MenuItem.OptionInteger
+        }
+    }
 } else {
     Write-Host "No files matching pattern 'n) ...' or 'nn) ...' found in folder '$MenuItemPath'."
     $ErrorFlag = $true
@@ -24,7 +35,7 @@ if ($MenuItems.Count -gt 0) {
 if ($ErrorFlag) {
     Write-Host
     Write-Host "Errors occured during initialization."
-    Write-Host "[Press enter to exit]"
+    Write-Host "Press [Enter] to exit."
     Read-Host
     return
 }
