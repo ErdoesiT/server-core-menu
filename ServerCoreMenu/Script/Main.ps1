@@ -1,4 +1,8 @@
-﻿$BasePath       = Split-Path -Parent $PSScriptRoot
+﻿# Server Core Menu
+# https://github.com/ErdoesiT/server-core-menu
+
+# Initilize variables
+$BasePath       = Split-Path -Parent $PSScriptRoot
 $MenuItemFolder = "MenuItems"
 $MenuItemPath   = Join-Path $BasePath $MenuItemFolder
 $MenuItems      = Get-ChildItem $MenuItemPath | Where { $_.Name -match "^[1-9][0-9]?\) .+" }
@@ -44,7 +48,7 @@ if ($ErrorFlag) {
 While ($true) {
     Clear-Host
 
-    Write-Host $env:computername
+    Write-Host "Server Core Menu: $env:computername"
     Write-Host "================================================================================"
     Write-Host
 
