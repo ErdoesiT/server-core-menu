@@ -14,7 +14,10 @@ Run PowerShell script 'Uninstall.ps1' in folder 'ServerCoreMenu\Setup' and delet
 
 # Adding menu items
 To add a new menu item, simply place your PowerShell script, batch file or and other document in folder 'ServerCoreMenu\MenuItems' and name it according to the following naming convention:
-\<one or two digit number\>) \<Description\>
+`nn) text`
+
+nn   = One or two digit number
+text = description
 
 # Removing menu items
 Delete the corrensponding files in folder 'ServerCoreMenu\MenuItems'.
